@@ -4,12 +4,10 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.pipeline import Pipeline, make_pipeline
 
 SEED = 42
-MAX_TOKENS = 20000
-
 
 def make_model() -> Pipeline:
     vectorizer = TfidfVectorizer(
-        ngram_range=(1, 2), sublinear_tf=True, max_features=MAX_TOKENS
+        ngram_range=(1, 2), sublinear_tf=True, max_features=20000
     )
 
     dimensionality_reducer = TruncatedSVD(
