@@ -1,6 +1,8 @@
 data/
-mlruns/
-mlflow.db
+.terraform/
+.terraform.lock.hcl
+terraform.tfstate
+terraform.tfstate.backup
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
