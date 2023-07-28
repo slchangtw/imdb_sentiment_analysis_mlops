@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "ml-projects"
+name = "imdb_sentiment"
 version = "0.1.0"
 description = ""
-authors = ["Your Name <you@example.com>"]
+authors = ["Shun-Lung Chang<shunlung.chang@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 packages = [{include = "ml_projects"}]
