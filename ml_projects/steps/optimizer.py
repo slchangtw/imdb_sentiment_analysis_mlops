@@ -1,29 +1,27 @@
-import mlflow
 import optuna
-from optuna.integration.mlflow import MLflowCallback
 import pandas as pd
-from sklearn.metrics import log_loss
+from optuna.integration.mlflow import MLflowCallback
+from sklearn.metrics import accuracy_score
 
-from config.settings import MLFLOW_TRACKING_URI
-from config.params import params
+from ml_projects.config.params import params
+from ml_projects.config.settings import settings
+
 from .make_model import make_model
 
-
 mlflc = MLflowCallback(
-    tracking_uri=MLFLOW_TRACKING_URI,
-    metric_name=params["metric"],
+    tracking_uri=settings.MLFLOW_TRACKING_URI,
+    metric_name="accuracy",
 )
 
 
 class Optimizer:
-    def __init__(self, params: dict[str, any]=params):
-        self.params = params["param"]
+    def __init__(self, params: dict[str, any] = params):
+        self.params = params["params"]
 
-    @mlflc.track_in_mlflow()
     def objective(
         self,
         trial: optuna.Trial,
-        X_train: pd.Dataframe,
+        X_train: pd.DataFrame,
         y_train: pd.DataFrame,
         X_val: pd.DataFrame,
         y_val: pd.DataFrame,
@@ -40,15 +38,12 @@ class Optimizer:
                 suggested = trial.suggest_float(k, v["low"], v["high"], log=v["log"])
                 param_space.update({k: suggested})
 
-        model = make_model(**param_space)
+        model = make_model(param_space)
         model.fit(X_train, y_train)
 
-        loss_val = log_loss(y_val, model.predict(X_val), squared=False)
+        accuracy = accuracy_score(y_val, model.predict(X_val))
 
-        mlflow.log_params(params)
-        mlflow.log_metric(params["metric"], loss_val)
-
-        return loss_val
+        return accuracy
 
     def optimize(
         self,
@@ -57,10 +52,13 @@ class Optimizer:
         X_val: pd.DataFrame,
         y_val: pd.DataFrame,
     ) -> optuna.trial.Trial:
-        study = optuna.create_study(direction=params["direction"])
+        study = optuna.create_study(
+            study_name=settings.EXPERIMENT_NAME, direction=params["direction"]
+        )
         study.optimize(
             lambda trial: self.objective(trial, X_train, y_train, X_val, y_val),
             n_trials=params["n_trials"],
+            callbacks=[mlflc],
             show_progress_bar=True,
         )
         return study.best_trial

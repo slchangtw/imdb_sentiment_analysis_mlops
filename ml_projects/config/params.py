@@ -1,10 +1,9 @@
 params = {
     "direction": "minimize",
-    "n_trials": 100,
+    "n_trials": 2,
     "metric": "loss_val",
     "params": {
         "int": {
-            "n_components": {"low": 64, "high": 512},
             "max_iter": {"low": 800, "high": 1200},
             "max_depth": {"low": 3, "high": 10},
             "min_samples_leaf": {"low": 10, "high": 25},

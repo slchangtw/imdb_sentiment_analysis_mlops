@@ -1,12 +1,13 @@
 from pathlib import Path
 
-
 from .load_data import load_data
-from .transform_data import convert_label, process_review
 from .optimizer import Optimizer
+from .transform_data import convert_label, process_review
 
 
-def train(train_data_path: Path, val_data_path: Path):
+def train(train_data_path: str, val_data_path: str):
+    train_data_path = Path(train_data_path)
+    val_data_path = Path(val_data_path)
     train = load_data(train_data_path)
     val = load_data(val_data_path)
 
@@ -23,3 +24,7 @@ def train(train_data_path: Path, val_data_path: Path):
     optimizer = Optimizer()
 
     optimizer.optimize(X_train, y_train, X_val, y_val)
+
+
+if __name__ == "__main__":
+    train("data/train.csv", "data/valid.csv")
