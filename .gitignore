@@ -10,6 +10,9 @@ terraform.tfstate.backup
 mlruns/
 mlflow.db
 
+# ruff
+.ruff_cache/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
