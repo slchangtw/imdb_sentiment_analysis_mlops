@@ -1,0 +1,41 @@
+name: Run tests
+
+on:
+  pull_request:
+
+jobs:
+  run-tests:
+    name: Run test suite
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Setup Poetry
+      uses: Gr1N/setup-poetry@v8
+      with:
+        poetry-version: '1.5.1'
+
+    - name: Install dependencies
+      run: |
+        poetry install
+      env:
+        POETRY_VIRTUALENVS_CREATE: false
+
+    - name: Run black check
+      run: |
+        black --check .
+
+    - name: Check code with Ruff
+      run: |
+        ruff check imdb_sentiment tests
+
+    - name: Run tests
+      run: |
+        pytest -s tests
