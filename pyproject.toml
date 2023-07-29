@@ -2,10 +2,10 @@
 name = "imdb_sentiment"
 version = "0.1.0"
 description = ""
-authors = ["Shun-Lung Chang<shunlung.chang@gmail.com>"]
+authors = ["Shun-Lung Chang <shunlung.chang@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-packages = [{include = "ml_projects"}]
+packages = [{include = "imdb_sentiment"}]
 
 [tool.poetry.dependencies]
 python = "~3.9"
@@ -26,6 +26,7 @@ ipykernel = "^6.24.0"
 pytest = "^7.4.0"
 black = "^23.7.0"
 pre-commit = "^3.3.3"
+ruff = "^0.0.280"
 
 [build-system]
 requires = ["poetry-core"]
