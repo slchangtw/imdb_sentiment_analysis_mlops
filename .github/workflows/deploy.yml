@@ -1,0 +1,43 @@
+name: Deploy model to Elastic BeaStalk
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+        - closed
+
+env:
+  AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_REGION: eu-central-1
+
+jobs:
+  if_merged:
+    if: github.event.pull_request.merged
+    runs-on: ubuntu-latest
+    steps:  
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup dvc
+      uses: iterative/setup-dvc@v1
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ env.AWS_ACCESS_KEY }}
+        aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: Pull model by dvc
+      run: |
+        dvc pull model/model.pkl
+
+    - name: Deploy to EB
+      uses: einaregilsson/beanstalk-deploy@v21
+      with:
+        application_name: imdb-sentiment-predictor
+        environment_name: imdb-sentiment-predictor-env
+        version_label: ${{ github.sha }}
+        region: ${{ env.AWS_REGION }}
