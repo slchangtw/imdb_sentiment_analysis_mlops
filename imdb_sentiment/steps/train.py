@@ -22,8 +22,7 @@ def train(train_data_path: str, val_data_path: str):
     y_val = val["label"]
 
     optimizer = Optimizer()
-
-    optimizer.optimize(X_train, y_train, X_val, y_val)
+    optimizer.optimize((X_train, y_train, X_val, y_val))
 
 
 if __name__ == "__main__":
