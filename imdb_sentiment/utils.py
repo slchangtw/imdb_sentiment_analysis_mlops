@@ -31,7 +31,7 @@ def get_best_run_id() -> str:
 
 
 def download_model_artifacts(
-    best_run_id: str, artifact_path: str = "model/model.pkl", dst_path: str = "model"
+    best_run_id: str, artifact_path: str = "model/model.pkl", dst_path: str = "."
 ) -> None:
     client = MlflowClient(tracking_uri=settings.MLFLOW_TRACKING_URI)
     Path(dst_path).mkdir(parents=True, exist_ok=True)
