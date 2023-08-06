@@ -1,0 +1,6 @@
+[core]
+    remote = data
+['remote "data"']
+    url = s3://imdb-reviews-bucket/data
+['remote "model"']
+    url = s3://imdb-reviews-bucket/model

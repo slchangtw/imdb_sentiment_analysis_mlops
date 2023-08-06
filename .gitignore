@@ -1,5 +1,7 @@
-data/
-model/
+# dvc
+.dvc/config.local
+.dvc/tmp
+.dvc/cache
 
 # terraform
 .terraform/
