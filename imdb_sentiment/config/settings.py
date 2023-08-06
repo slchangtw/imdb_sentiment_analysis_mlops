@@ -1,9 +1,11 @@
+import os
+
 from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
+    MLFLOW_TRACKING_URI: str = os.getenv("MLFLOW_TRACKING_URI", "http://localhost:5000")
     EXPERIMENT_NAME: str = "imdb_sentiment_analysis"
-    MLFLOW_TRACKING_URI: str = "http://localhost:5000"
 
 
 settings = Settings(

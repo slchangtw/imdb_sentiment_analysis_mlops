@@ -1,6 +1,6 @@
 params = {
     "direction": "minimize",
-    "n_trials": 2,
+    "n_trials": 3,
     "metric": "loss_val",
     "params": {
         "int": {
