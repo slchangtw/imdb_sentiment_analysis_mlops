@@ -35,7 +35,7 @@ jobs:
         POETRY_VIRTUALENVS_CREATE: false
 
     - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v2
+      uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-access-key-id: ${{ env.AWS_ACCESS_KEY }}
         aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
