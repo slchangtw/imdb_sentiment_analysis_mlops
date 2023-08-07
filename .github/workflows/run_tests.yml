@@ -4,6 +4,10 @@ on:
   pull_request:
     branches:
       - main
+env:
+  AWS_ACCESS_KEY:: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_REGION: eu-central-1
 
 jobs:
   run-tests:
@@ -29,6 +33,17 @@ jobs:
         poetry install
       env:
         POETRY_VIRTUALENVS_CREATE: false
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ env.AWS_ACCESS_KEY }}
+        aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: Pull model by dvc
+      run: |
+        dvc pull model/model.pkl
 
     - name: Run black check
       run: |

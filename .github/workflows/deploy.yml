@@ -37,7 +37,7 @@ jobs:
     - name: Deploy to EB
       uses: einaregilsson/beanstalk-deploy@v21
       with:
-        application_name: MyApplicationName
-        environment_name: MyApplication-Environment
+        application_name: imdb-sentiment-predictor
+        environment_name: imdb-sentiment-predictor-env
         version_label: ${{ github.sha }}
         region: ${{ env.AWS_REGION }}
