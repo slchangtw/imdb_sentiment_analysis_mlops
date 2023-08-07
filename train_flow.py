@@ -13,7 +13,7 @@ def train_flow(
     ] = "data/train.csv",
     val_data_path: Annotated[
         str, typer.Argument(help="Path to the validation data")
-    ] = "data/val.csv",
+    ] = "data/valid.csv",
 ) -> None:
     train(train_data_path, val_data_path)
     best_run_id = get_best_run_id()
