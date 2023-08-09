@@ -34,6 +34,9 @@ jobs:
       run: |
         dvc pull model/model.pkl -r model
 
+    - name: Generate deployment package
+      run: zip -r deploy.zip imdb_sentiment/ model/ poetry.lock pyproject.toml Dockerfile
+
     - name: Deploy to EB
       uses: einaregilsson/beanstalk-deploy@v21
       with:
@@ -43,3 +46,4 @@ jobs:
         environment_name: imdb-sentiment-predictor-env
         version_label: ${{ github.sha }}
         region: ${{ env.AWS_REGION }}
+        deployment_package: deploy.zip
