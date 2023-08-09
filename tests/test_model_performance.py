@@ -30,13 +30,7 @@ def fixture_model():
             ),
             0,
         ),
-        (
-            (
-                "The trouble with this film, like so many other films that fail,"
-                "is the script."
-            ),
-            0,
-        ),
+        (("After seeing the low-budget shittier version", 0)),
     ],
 )
 def test_model_performance(model, review, label):
