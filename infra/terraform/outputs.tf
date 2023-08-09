@@ -1,9 +1,12 @@
-output "server_public_ip" {
-  description = "Public IP address of the mlflow server"
-  value       = aws_instance.mlflow_server.public_ip
+output "mlflow_tracking_uri" {
+  description = "Mlflow tracking uri"
+  value       = module.mlflow.mlflow_tracking_uri
 }
 
-output "database_endpoint" {
-  description = "Database endpoint"
-  value       = aws_db_instance.mlflow_db.endpoint
+output "mlflow_command" {
+  description = "Command to start mlflow server"
+  value       = module.mlflow.mlflow_command
+  sensitive   = true
 }
+
+

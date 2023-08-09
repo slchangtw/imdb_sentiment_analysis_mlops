@@ -8,7 +8,10 @@ SEED = 42
 
 def make_model(params: dict[str, any]) -> Pipeline:
     vectorizer = TfidfVectorizer(
-        ngram_range=(1, 2), sublinear_tf=True, max_features=20000
+        ngram_range=(1, 2),
+        stop_words="english",
+        sublinear_tf=True,
+        max_features=20000,
     )
 
     dimensionality_reducer = TruncatedSVD(

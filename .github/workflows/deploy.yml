@@ -1,38 +1,27 @@
-name: Run tests
+name: Deploy model to Elastic BeaStalk
 
 on:
   pull_request:
     branches:
       - main
+    types:
+        - closed
+
 env:
   AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   AWS_REGION: eu-central-1
 
 jobs:
-  run-tests:
-    name: Run test suite
+  if_merged:
+    if: github.event.pull_request.merged
     runs-on: ubuntu-latest
-
-    steps:
+    steps:  
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Set up Python 3.9
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.9'
-
-    - name: Setup Poetry
-      uses: Gr1N/setup-poetry@v8
-      with:
-        poetry-version: '1.5.1'
-
-    - name: Install dependencies
-      run: |
-        poetry install
-      env:
-        POETRY_VIRTUALENVS_CREATE: false
+    - name: Setup dvc
+      uses: iterative/setup-dvc@v1
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v2
@@ -45,14 +34,10 @@ jobs:
       run: |
         dvc pull model/model.pkl -r model
 
-    - name: Run black check
-      run: |
-        black --check .
-
-    - name: Check code with Ruff
-      run: |
-        ruff check imdb_sentiment tests
-
-    - name: Run tests
-      run: |
-        pytest -s tests
+    - name: Deploy to EB
+      uses: einaregilsson/beanstalk-deploy@v21
+      with:
+        application_name: imdb-sentiment-predictor
+        environment_name: imdb-sentiment-predictor-env
+        version_label: ${{ github.sha }}
+        region: ${{ env.AWS_REGION }}

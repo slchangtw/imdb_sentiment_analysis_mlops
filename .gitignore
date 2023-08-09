@@ -1,4 +1,7 @@
-data/
+# dvc
+.dvc/config.local
+.dvc/tmp
+.dvc/cache
 
 # terraform
 .terraform/
@@ -12,6 +15,14 @@ mlflow.db
 
 # ruff
 .ruff_cache/
+
+# .vscode
+.vscode/
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -166,3 +177,8 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
