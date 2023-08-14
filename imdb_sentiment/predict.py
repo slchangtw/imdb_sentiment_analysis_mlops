@@ -1,20 +1,12 @@
-import pickle
-
 import uvicorn
 from fastapi import FastAPI
-from sklearn.pipeline import Pipeline
 
 from .review import Review
 from .steps.transform_data import process_review
-
-
-def load_model() -> Pipeline:
-    with open("model/model.pkl", "rb") as f:
-        return pickle.load(f)
-
+from .utils import load_model
 
 app = FastAPI()
-model = load_model()
+model = load_model("model/model.pkl")
 
 
 @app.get("/")

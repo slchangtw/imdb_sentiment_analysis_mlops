@@ -1,8 +1,10 @@
+import pickle
 from pathlib import Path
 
 import git
 from mlflow.entities import ViewType
 from mlflow.tracking import MlflowClient
+from sklearn.pipeline import Pipeline
 
 from .config.settings import settings
 
@@ -36,3 +38,8 @@ def download_model_artifacts(
     client = MlflowClient(tracking_uri=settings.MLFLOW_TRACKING_URI)
     Path(dst_path).mkdir(parents=True, exist_ok=True)
     client.download_artifacts(best_run_id, artifact_path, dst_path)
+
+
+def load_model(model_path: Path) -> Pipeline:
+    with open(model_path, "rb") as f:
+        return pickle.load(f)

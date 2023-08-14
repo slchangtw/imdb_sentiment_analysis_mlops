@@ -43,6 +43,7 @@ jobs:
 
     - name: Pull model by dvc
       run: |
+        dvc pull data/valid.csv -r data
         dvc pull model/model.pkl -r model
     
     - name: Run black check
@@ -56,3 +57,7 @@ jobs:
     - name: Run tests
       run: |
         pytest -s tests
+    
+    - name: Print classification report
+      run: |
+        python -W ignore evaluate_model.py 
