@@ -20,3 +20,7 @@ module "mlflow" {
 module "s3_buckets" {
   source = "./modules/s3_buckets"
 }
+
+module "elastic_beanstalk" {
+  source = "./modules/elastic_beanstalk"
+}
