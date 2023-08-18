@@ -37,6 +37,8 @@ jobs:
     - name: Deploy to EB
       uses: einaregilsson/beanstalk-deploy@v21
       with:
+        aws_access_key: ${{ env.AWS_ACCESS_KEY }}
+        aws_secret_key: ${{ env.AWS_SECRET_ACCESS_KEY }}
         application_name: imdb-sentiment-predictor
         environment_name: imdb-sentiment-predictor-env
         version_label: ${{ github.sha }}
