@@ -32,7 +32,7 @@ jobs:
 
     - name: Pull model by dvc
       run: |
-        dvc pull model/model.pkl
+        dvc pull model/model.pkl -r model
 
     - name: Deploy to EB
       uses: einaregilsson/beanstalk-deploy@v21
