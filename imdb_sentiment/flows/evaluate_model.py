@@ -1,7 +1,8 @@
 import pandas as pd
 from sklearn.metrics import classification_report
 
-from imdb_sentiment import convert_label, load_model, process_review
+from imdb_sentiment.steps import convert_label, process_review
+from imdb_sentiment.utils import load_model
 
 
 def print_classification_report() -> None:

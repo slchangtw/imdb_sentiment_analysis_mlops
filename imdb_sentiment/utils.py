@@ -6,7 +6,7 @@ from mlflow.entities import ViewType
 from mlflow.tracking import MlflowClient
 from sklearn.pipeline import Pipeline
 
-from .config.settings import settings
+from imdb_sentiment.config import settings
 
 
 def get_git_sha() -> str:

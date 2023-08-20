@@ -1,6 +1,6 @@
 import pytest
 
-from imdb_sentiment import convert_label, process_review
+from imdb_sentiment.steps import convert_label, process_review
 
 
 @pytest.mark.parametrize(
