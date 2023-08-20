@@ -2,7 +2,7 @@ import pickle
 
 import pytest
 
-from imdb_sentiment import process_review
+from imdb_sentiment.steps import process_review
 
 
 @pytest.fixture(scope="session", name="model")

@@ -2,10 +2,10 @@ from pathlib import Path
 
 from .load_data import load_data
 from .optimizer import Optimizer
-from .transform_data import convert_label, process_review
+from .transform import convert_label, process_review
 
 
-def train(train_data_path: Path, val_data_path: Path):
+def train_model(train_data_path: Path, val_data_path: Path):
     train = load_data(train_data_path)
     val = load_data(val_data_path)
 

@@ -4,8 +4,7 @@ import pandas as pd
 from optuna.integration.mlflow import MLflowCallback
 from sklearn.metrics import accuracy_score
 
-from imdb_sentiment.config.params import params
-from imdb_sentiment.config.settings import settings
+from imdb_sentiment.config import params, settings
 
 from .make_model import make_model
 

@@ -1,0 +1,3 @@
+{
+  "monitor-model": "imdb_sentiment/flows/monitor_model.py:monitor_model"
+}

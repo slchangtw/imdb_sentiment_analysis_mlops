@@ -1,8 +1,9 @@
 import uvicorn
 from fastapi import FastAPI
 
-from .review import Review
-from .steps.transform_data import process_review
+from imdb_sentiment.config.review import Review
+
+from .steps import process_review
 from .utils import load_model
 
 app = FastAPI()

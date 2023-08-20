@@ -1,7 +1,8 @@
 import typer
 from typing_extensions import Annotated
 
-from imdb_sentiment import download_model_artifacts, get_best_run_id, train
+from imdb_sentiment.steps import train_model
+from imdb_sentiment.utils import download_model_artifacts, get_best_run_id
 
 app = typer.Typer()
 
@@ -15,7 +16,7 @@ def train_flow(
         str, typer.Argument(help="Path to the validation data")
     ] = "data/valid.csv",
 ) -> None:
-    train(train_data_path, val_data_path)
+    train_model(train_data_path, val_data_path)
     best_run_id = get_best_run_id()
     download_model_artifacts(best_run_id)
 

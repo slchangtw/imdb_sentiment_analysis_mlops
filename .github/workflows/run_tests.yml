@@ -60,4 +60,4 @@ jobs:
     
     - name: Print classification report
       run: |
-        python -W ignore evaluate_model.py 
+        python -W ignore imdb_sentiment/flows/evaluate_model.py 
