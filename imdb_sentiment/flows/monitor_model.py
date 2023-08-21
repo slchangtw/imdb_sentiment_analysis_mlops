@@ -9,12 +9,9 @@ from imdb_sentiment.utils import load_model
 
 
 @task()
-def fetch_files_from_s3(
-    reference_data_path: Path, test_data_path: Path, model_path: Path
-) -> None:
+def fetch_files_from_s3(test_data_path: Path, model_path: Path) -> None:
     s3_bucket_block = S3Bucket.load("aws-s3")
     s3_bucket_block.download_object_to_path("model.pkl", model_path)
-    s3_bucket_block.download_object_to_path("valid.csv", reference_data_path)
     s3_bucket_block.download_object_to_path("test.csv", test_data_path)
 
 
@@ -39,22 +36,17 @@ def monitor_model():
     monitor_files_folder = Path("monitor_files")
     monitor_files_folder.mkdir(exist_ok=True)
 
-    reference_data_path = monitor_files_folder / "valid.csv"
     test_data_path = monitor_files_folder / "test.csv"
     model_path = monitor_files_folder / "model.pkl"
     test_prediction_path = monitor_files_folder / "test_prediction.csv"
 
-    fetch_files_from_s3(reference_data_path, test_data_path, model_path)
+    fetch_files_from_s3(test_data_path, model_path)
 
     model = load_model(monitor_files_folder / "model.pkl")
-    valid_data = read_data(reference_data_path)
     test_data = read_data(test_data_path)
 
-    valid_data["processed_review"] = process_review_col(valid_data["review"])
     test_data["processed_review"] = process_review_col(test_data["review"])
-
     test_data["predicted_label"] = model.predict(test_data["processed_review"])
-
     test_data.to_csv(test_prediction_path, index=False)
 
     upload_predictions_s3(test_prediction_path)

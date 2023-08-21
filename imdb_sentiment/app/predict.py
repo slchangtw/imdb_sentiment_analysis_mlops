@@ -1,12 +1,22 @@
+import pickle
+from pathlib import Path
+
 import uvicorn
 from fastapi import FastAPI
+from sklearn.pipeline import Pipeline
 
 from imdb_sentiment.config.review import Review
+from imdb_sentiment.steps import process_review
 
-from .steps import process_review
-from .utils import load_model
+
+def load_model(model_path: Path) -> Pipeline:
+    with open(model_path, "rb") as f:
+        return pickle.load(f)
+
 
 app = FastAPI()
+
+
 model = load_model("model/model.pkl")
 
 
@@ -17,7 +27,7 @@ def index():
 
 @app.post("/predict")
 async def predict_review(review: Review):
-    review = review.model_dump()
+    review = review.dict()
 
     text = review["text"]
     processed_text = process_review(text)

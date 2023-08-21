@@ -40,6 +40,8 @@ The development flow is that the developers create a new git branch and train ML
 
 3. On the local machine, install aws cli and use `aws configure` to set up the AWS credentials. Further details can be found [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html).
 
+4. Add AWS credentials `AWS_ACCESS_KEY_ID`  and `AWS_SECRET_ACCESS_KEY` in Github secrets. Further details can be found [here](https://docs.github.com/en/actions/security-guides/encrypted-secrets).
+
 ## Install project dependencies
 
 Run the following command to install poetry and the dependencies. The version of Python is 3.9.
@@ -114,16 +116,17 @@ dvc push model/model.pkl -r model
    - Check if the model can pass sample cases.
    - Create a report to show the model performance.
 
-2. Merge the pull request to the main branch, and the model will be deployed to AWS Elastic Beanstalk as a web service. However, the settings are not properly configured by terraform and hence the model cannot be automatically deployed.
+<p align="center"><img src="./images/model_performance.png" alt="model_performance" height="280" width="290"/></p>
 
-3. To containerize the model as a service and run the app locally, run the following command. Open the browser and go to `http://localhost:8000/docs` to see the swagger documentation. Try the endpoint `POST /predict` to make a prediction.
+1. Merge the pull request to the main branch, and the model will be deployed to AWS Elastic Beanstalk as a web service. However, the settings are not properly configured by terraform and hence the model cannot be automatically deployed.
+
+2. To containerize the model as a service and run the app locally, run the following command. Open the browser and go to `http://localhost:8000/docs` to see the swagger documentation. Try the endpoint `POST /predict` to make a prediction.
 
 ```bash
 docker build -t imdb-sentiment-predictor .
 docker run -p 8000:8000 --rm imdb-sentiment-predictor
 ```
 <p align="left"><img src="./images/fastapi.png" alt="fastapi" height="250" width="400"/></p>
-
 
 ## Make batch predictions
 
