@@ -2,7 +2,7 @@
 
 # Problem statement
 
-This project aims to build an MLOps pipeline for sentiment analysis of IMDB movie reviews. The following diagram shows the architecture of the pipeline. The AWS infrastructure is managed by Terraform.
+This project aims to build an MLOps pipeline for sentiment (positive or negative) analysis of IMDB movie reviews. The following diagram shows the architecture of the pipeline. The AWS infrastructure is managed by Terraform.
 
 <p align="center"><img src="./images/mlops_flow.png" alt="mlops_flow" height="300" width="500"/></p>
 
