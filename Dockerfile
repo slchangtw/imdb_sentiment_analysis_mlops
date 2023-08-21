@@ -10,10 +10,17 @@ COPY imdb_sentiment/ imdb_sentiment/
 COPY model/ model/
 COPY poetry.lock pyproject.toml ./
 
+RUN apt-get update --yes && \
+    apt-get upgrade --yes && \
+    apt-get install --yes --no-install-recommends \
+    python3-dev \
+    gcc && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
 RUN pip install -U pip && \
     pip install poetry==1.5.1 && \
     poetry install --no-interaction --no-cache --without dev,test
 
 EXPOSE 8000
 
-ENTRYPOINT ["uvicorn", "--host", "0.0.0.0", "imdb_sentiment.predict:app"]
+ENTRYPOINT ["uvicorn", "--host", "0.0.0.0", "imdb_sentiment.app.predict:app"]

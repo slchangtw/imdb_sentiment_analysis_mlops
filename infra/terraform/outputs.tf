@@ -8,10 +8,3 @@ output "mlflow_command" {
   value       = module.mlflow.mlflow_command
   sensitive   = true
 }
-
-output "eb_web_service_url" {
-  description = "Elastic Beanstalk web service url"
-  value       = module.elastic_beanstalk.endpoint_url
-}
-
-
