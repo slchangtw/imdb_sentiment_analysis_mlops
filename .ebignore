@@ -1,0 +1,11 @@
+.dvc/
+.github/
+.prefect/
+
+data/
+imdb_data/
+
+images/
+
+infra/
+tests/
