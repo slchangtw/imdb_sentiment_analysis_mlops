@@ -113,7 +113,7 @@ dvc push model/model.pkl -r model
 
 3. Go to the Elastic Beanstalk console and click the domain link of the environment `imdb-sentiment-predictor-env`. 
 
-<p align="left"><img src="./images/app_domain.png" alt="fastapi" height="120" width="300"/></p>
+<p align="left"><img src="./images/app_domain.png" alt="app_domain" height="120" width="300"/></p>
 
 4. Add `/docs` to the domain link. We can see the API documentation and test the API.
 
