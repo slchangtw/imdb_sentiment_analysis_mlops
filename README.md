@@ -57,6 +57,12 @@ export MLFLOW_TRACKING_URI=$(terraform output -raw mlflow_tracking_uri)
 terraform output mlflow_command
 ```
 
+4. Set up a Elastic Beanstalk environment. Install the EB cli. Further details can be found [here](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install.html#eb-cli3-install.scripts). Create a new environment (named `imdb-sentiment-predictor-env`) with the following command.
+
+```bash
+eb create imdb-sentiment-predictor-env
+```
+
 ## Start mlflow server
 
 1. Log in to the EC2 instance by the private key downloaded in the previous step.
@@ -101,16 +107,16 @@ dvc push model/model.pkl -r model
    - Check if the model can pass sample cases.
    - Create a report to show the model performance.
 
-<p align="center"><img src="./images/model_performance.png" alt="model_performance" height="280" width="290"/></p>
+<p align="left"><img src="./images/model_performance.png" alt="model_performance" height="280" width="290"/></p>
 
-1. Merge the pull request to the main branch, and the model will be deployed to AWS Elastic Beanstalk as a web service. However, the settings are not properly configured by terraform and hence the model cannot be automatically deployed.
+2. Merge the pull request to the main branch, and the model will be deployed to AWS Elastic Beanstalk as a web service. 
 
-2. To containerize the model as a service and run the app locally, run the following command. Open the browser and go to `http://localhost:8000/docs` to see the swagger documentation. Try the endpoint `POST /predict` to make a prediction.
+3. Go to the Elastic Beanstalk console and click the domain link of the environment `imdb-sentiment-predictor-env`. 
 
-```bash
-docker build -t imdb-sentiment-predictor .
-docker run --rm -p 8000:8000 imdb-sentiment-predictor
-```
+<p align="left"><img src="./images/app_domain.png" alt="fastapi" height="120" width="300"/></p>
+
+4. Add `/docs` to the domain link. We can see the API documentation and test the API.
+
 <p align="left"><img src="./images/fastapi.png" alt="fastapi" height="250" width="400"/></p>
 
 ## Make batch predictions
@@ -146,8 +152,14 @@ prefect worker start -p monitor-model-work-pool
 
 ## Clean up
 
-Go to the folder `infra/terraform` and run the following command to destroy the infrastructure.
+1. Go to the folder `infra/terraform` and run the following command to destroy the infrastructure.
 
 ```bash
 terraform destroy -var-file="secrets.tfvars" --auto-approve
+```
+
+2. Terminate the Elastic Beanstalk environment.
+
+```bash
+eb terminate imdb-sentiment-predictor-env
 ```
