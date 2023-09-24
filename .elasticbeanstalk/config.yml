@@ -1,5 +1,5 @@
 branch-defaults:
-  Fix-deployment:
+  main:
     environment: imdb-sentiment-predictor-env
     group_suffix: null
 global:
