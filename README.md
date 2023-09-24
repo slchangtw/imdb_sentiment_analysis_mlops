@@ -8,21 +8,6 @@ This project aims to build an MLOps pipeline for sentiment (positive or negative
 
 The development flow is that the developers create a new git branch and train ML models locally with a remote mlflow server. The datasets and best models are stored in S3 buckets and versioned by dvc. When a pull request is made, a CI flow is triggered to run the integration tests and present the performance in a report. After the pull request is merged, the model is deployed to AWS Elastic Beanstalk as a web service.
 
-# For peer review
-
-- [x] Cloud: The project uses AWS as the cloud provider and uses Terraform to manage the infrastructure.
-- [x] Experiment tracking and model registry: The project uses mlflow to track the experiments and store the models in S3.
-- [x] Workflow orchestration: The project uses prefect to make batch predictions.
-- [x] CI/CD: The project uses Github Actions to run the integration tests. For deployment, the project uses AWS Elastic Beanstalk for the web service, however, the deployment is yet not fully automated and further details can be seen in the section `Trigger CI/CD` below.
-- [x] Model monitoring: During the integration test, the model will be evaluated on a validation dataset and a report will be generated to show the model performance.
-- [x] Reproducibility: The projects use poetry to manage the dependencies. The instructions below can be used to reproduce the results.
-- [x] Best practices:
-  - [x] Unit tests
-  - [x] An integration test
-  - [x] Code linting by ruff and formatting by black
-  - [x] A pre-commit hook to run the linting and formatting
-  - [x] A CI/CD pipeline
-
 
 # Set up the environment
 
@@ -124,7 +109,7 @@ dvc push model/model.pkl -r model
 
 ```bash
 docker build -t imdb-sentiment-predictor .
-docker run -p 8000:8000 --rm imdb-sentiment-predictor
+docker run --rm -p 8000:8000 imdb-sentiment-predictor
 ```
 <p align="left"><img src="./images/fastapi.png" alt="fastapi" height="250" width="400"/></p>
 
