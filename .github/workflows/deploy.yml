@@ -3,7 +3,7 @@ name: Deploy model to Elastic BeaStalk
 on:
   pull_request:
     branches:
-      - work_in_progress
+      - main
     types:
         - closed
 
