@@ -11,11 +11,8 @@ python = "~3.9"
 mlflow = "^2.3.1"
 optuna = "^3.2.0"
 gitpython = "^3.1.32"
-fastapi = "^0.100.1"
-uvicorn = "^0.23.2"
 typer = "^0.9.0"
 dvc = {extras = ["s3"], version = "^3.15.3"}
-pydantic = {version = ">=1.9 <2.0.0", extras = ["dotenv"]}
 prefect-aws = "^0.3.6"
 
 
@@ -28,6 +25,13 @@ pytest = "^7.4.0"
 black = "^23.7.0"
 pre-commit = "^3.3.3"
 ruff = "^0.0.280"
+
+
+[tool.poetry.group.app.dependencies]
+fastapi = "^0.104.0"
+uvicorn = "^0.23.2"
+scikit-learn = "1.2.2"
+pydantic = {version = ">=1.9 <2.0.0", extras = ["dotenv"]}
 
 [build-system]
 requires = ["poetry-core"]

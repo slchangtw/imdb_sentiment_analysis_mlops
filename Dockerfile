@@ -10,16 +10,9 @@ COPY imdb_sentiment/ imdb_sentiment/
 COPY model/ model/
 COPY poetry.lock pyproject.toml ./
 
-RUN apt-get update --yes && \
-    apt-get upgrade --yes && \
-    apt-get install --yes --no-install-recommends \
-    python3-dev \
-    gcc && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
-
 RUN pip install -U pip && \
     pip install poetry==1.5.1 && \
-    poetry install --no-interaction --no-cache --without dev,test
+    poetry install --no-interaction --no-cache --only app
 
 EXPOSE 8000
 
