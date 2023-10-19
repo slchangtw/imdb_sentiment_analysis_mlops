@@ -1,7 +1,7 @@
 import typer
 from typing_extensions import Annotated
 
-from imdb_sentiment.steps import train_model
+from imdb_sentiment.steps.train import train_model
 from imdb_sentiment.utils import download_model_artifacts, get_best_run_id
 
 app = typer.Typer()
