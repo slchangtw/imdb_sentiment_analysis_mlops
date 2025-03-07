@@ -2,7 +2,7 @@ from pathlib import Path
 
 from .load_data import load_data
 from .optimizer import Optimizer
-from .transform import convert_label, process_review
+from .process_data import convert_label, process_review
 
 
 def train_model(train_data_path: Path, val_data_path: Path):
